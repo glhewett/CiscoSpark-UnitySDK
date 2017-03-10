@@ -92,10 +92,27 @@ namespace Cisco.Spark
         protected override void LoadDict(Dictionary<string, object> data)
         {
             base.LoadDict(data);
-            DisplayName = data["displayName"] as string;
-            NickName = data["nickName"] as string;
-            FirstName = data["firstName"] as string;
-            LastName = data["lastName"] as string;
+
+            // Names aren't guaranteed.
+            if (data.ContainsKey("displayName"))
+            {
+                DisplayName = data["displayName"] as string;
+            }
+
+            if (data.ContainsKey("nickName"))
+            {
+                NickName = data["nickName"] as string;
+            }
+
+            if (data.ContainsKey("firstName"))
+            {
+                FirstName = data["firstName"] as string;
+            }
+
+            if (data.ContainsKey("lastName"))
+            {
+                LastName = data["lastName"] as string;
+            }
 
             // Avatar.
             var avatarUri = new Uri(data["avatar"] as string);
@@ -107,7 +124,6 @@ namespace Cisco.Spark
             {
                 Emails.Add(obj as string);
             }
-            // TODO: Add Person specific fields.
         }
 
         /// <summary>
